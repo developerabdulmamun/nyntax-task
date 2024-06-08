@@ -64,34 +64,38 @@ const ChargesSummary = ({
     <div>
       <SectionHeader title={"Charges Summary"} />
 
-      <div className="bg-blue-100 border border-blue-600 rounded py-5 px-2">
+      <div className="bg-blue-100 border border-blue-600 rounded py-5 px-[10px]">
         <table className="w-full table-auto ">
           <thead>
             <tr className="text-left border-b border-blue-500">
               <th className="py-2 px-4 font-semibold text-sm">Charge</th>
-              <th className="py-2 px-4 font-semibold text-sm">Unit</th>
-              <th className="py-2 px-4 font-semibold text-sm">Rate</th>
-              <th className="py-2 px-4 font-semibold text-sm">Total</th>
+              <th className="py-2 px-4 font-semibold text-sm text-center">
+                Unit
+              </th>
+              <th className="py-2 px-4 font-semibold text-sm text-end">Rate</th>
+              <th className="py-2 px-4 font-semibold text-sm text-end">
+                Total
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td className="py-2 px-4">Weekly</td>
-              <td className="py-2 px-4">{weeks}</td>
-              <td className="py-2 px-4">${weekly}</td>
-              <td className="py-2 px-4">${weeklyCharge}</td>
+              <td className="py-2 px-4 text-center">{weeks}</td>
+              <td className="py-2 px-4 text-end">${weekly}</td>
+              <td className="py-2 px-4 text-end">${weeklyCharge}</td>
             </tr>
             <tr>
               <td className="py-2 px-4">Daily</td>
-              <td className="py-2 px-4">{days}</td>
-              <td className="py-2 px-4">${daily}</td>
-              <td className="py-2 px-4">${dailyCharge}</td>
+              <td className="py-2 px-4 text-center">{days}</td>
+              <td className="py-2 px-4 text-end">${daily}</td>
+              <td className="py-2 px-4 text-end">${dailyCharge}</td>
             </tr>
             <tr>
               <td className="py-2 px-4">Hourly</td>
-              <td className="py-2 px-4">{hours}</td>
-              <td className="py-2 px-4">${hourly}</td>
-              <td className="py-2 px-4">${hourlyCharge}</td>
+              <td className="py-2 px-4 text-center">{hours}</td>
+              <td className="py-2 px-4 text-end">${hourly}</td>
+              <td className="py-2 px-4 text-end">${hourlyCharge}</td>
             </tr>
 
             {additionalCharges && (
@@ -99,7 +103,9 @@ const ChargesSummary = ({
                 <td className="py-2 px-4">Additional Charges</td>
                 <td></td>
                 <td></td>
-                <td className="py-2 px-4">${additionalChargesTotal}</td>
+                <td className="py-2 px-4 text-end">
+                  ${additionalChargesTotal}
+                </td>
               </tr>
             )}
 
@@ -108,7 +114,9 @@ const ChargesSummary = ({
                 <td className="py-2 px-4">Rental Tax</td>
                 <td></td>
                 <td></td>
-                <td className="py-2 px-4">${rentalTaxAmount.toFixed(2)}</td>
+                <td className="py-2 px-4 text-end">
+                  ${rentalTaxAmount.toFixed(2)}
+                </td>
               </tr>
             )}
 
@@ -117,15 +125,17 @@ const ChargesSummary = ({
                 <td className="py-2 px-4">Discount</td>
                 <td></td>
                 <td></td>
-                <td className="py-2 px-4">-${discountAmount.toFixed(2)}</td>
+                <td className="py-2 px-4 text-end">
+                  -${discountAmount.toFixed(2)}
+                </td>
               </tr>
             )}
 
             <tr className="font-semibold">
               <td className="pt-4 px-4 text-start">Total</td>
-              <td className="pt-4 px-4 text-start"></td>
-              <td className="pt-4 px-4 text-start"></td>
-              <td className="pt-4 px-4">${totalCharge.toFixed(2)}</td>
+              <td></td>
+              <td></td>
+              <td className="pt-4 px-4 text-end">${totalCharge.toFixed(2)}</td>
             </tr>
           </tbody>
         </table>
