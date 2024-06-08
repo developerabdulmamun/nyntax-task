@@ -25,7 +25,6 @@ const ReservationForm = () => {
     email: "",
     phone: "",
   });
-  const [showInvoice, setShowInvoice] = useState(false);
 
   useEffect(() => {
     generateReservationId();
@@ -53,7 +52,6 @@ const ReservationForm = () => {
   };
 
   const handlePrint = () => {
-    setShowInvoice(true);
     window.print();
   };
 
@@ -110,16 +108,14 @@ const ReservationForm = () => {
             discount={discount}
           />
 
-          {showInvoice && (
-            <Invoice
-              customerInfo={customerInfo}
-              duration={duration}
-              selectedVehicle={selectedVehicle}
-              additionalCharges={additionalCharges}
-              discount={discount}
-              reservationId={reservationId}
-            />
-          )}
+          <Invoice
+            customerInfo={customerInfo}
+            duration={duration}
+            selectedVehicle={selectedVehicle}
+            additionalCharges={additionalCharges}
+            discount={discount}
+            reservationId={reservationId}
+          />
         </div>
       </div>
     </div>
