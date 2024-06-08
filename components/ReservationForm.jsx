@@ -96,6 +96,8 @@ const ReservationForm = () => {
               selectedVehicle={selectedVehicle}
               additionalCharges={additionalCharges}
               discount={discount}
+              pickupDate={pickupDate}
+              returnDate={returnDate}
             />
           </div>
         </div>

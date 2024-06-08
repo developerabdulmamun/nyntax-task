@@ -8,6 +8,8 @@ const Invoice = ({
   duration,
   additionalCharges,
   discount,
+  pickupDate,
+  returnDate,
 }) => {
   const invoiceRef = useRef();
 
@@ -29,7 +31,6 @@ const Invoice = ({
           <div className="text-right">
             <h2 className="text-xl font-semibold">Reservation</h2>
             <p className="mt-1">RA #0121</p>
-            <p className="mt-1">REPAIR ORDER:</p>
           </div>
         </div>
 
@@ -55,6 +56,9 @@ const Invoice = ({
           additionalCharges={additionalCharges}
           discount={discount}
         />
+        <p className="mt-4">Duration: {duration}</p>
+        <p className="mt-2">Pick-up Date: {pickupDate}</p>
+        <p className="mt-2">Return Date: {returnDate}</p>
       </div>
 
       <button
