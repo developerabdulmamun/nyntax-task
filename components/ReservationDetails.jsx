@@ -73,7 +73,7 @@ const ReservationDetails = () => {
             onChange={(date) => setPickupDate(date)}
             showTimeSelect
             dateFormat="Pp"
-            className="border rounded w-full p-2 text-sm text-[#]"
+            className="border rounded w-full p-2 text-sm text-[#828290]"
             placeholderText="Select Date and Time"
             wrapperClassName="w-full"
             minDate={new Date()}
@@ -91,7 +91,7 @@ const ReservationDetails = () => {
             onChange={(date) => setReturnDate(date)}
             showTimeSelect
             dateFormat="Pp"
-            className="border rounded w-full p-2 text-sm text-[#]"
+            className="border rounded w-full p-2 text-sm text-[#828290]"
             placeholderText="Select Date and Time"
             wrapperClassName="w-full"
             minDate={pickupDate}

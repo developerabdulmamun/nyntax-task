@@ -1,3 +1,4 @@
+import CustomerInfo from "@/components/CustomerInfo";
 import ReservationDetails from "@/components/ReservationDetails";
 import VehicleInfo from "@/components/VehicleInfo";
 
@@ -19,7 +20,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-6">
-            
+            <CustomerInfo />
           </div>
         </div>
       </div>
