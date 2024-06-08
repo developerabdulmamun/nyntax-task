@@ -1,15 +1,17 @@
 "use client";
 
 import useFetchVehicleData from "@/hooks/useFetchVehicleData";
-import React, { useState } from "react";
+import React from "react";
 import CustomSelect from "./shared/CustomSelect";
 import SectionHeader from "./shared/SectionHeader";
 
-const VehicleInfo = () => {
+const VehicleInfo = ({
+  selectedType,
+  setSelectedType,
+  selectedVehicle,
+  setSelectedVehicle,
+}) => {
   const vehicleData = useFetchVehicleData();
-
-  const [selectedType, setSelectedType] = useState("");
-  const [selectedVehicle, setSelectedVehicle] = useState("");
 
   const vehicleTypes = [
     ...new Set(vehicleData?.map((vehicle) => vehicle.type)),
@@ -35,7 +37,7 @@ const VehicleInfo = () => {
             value={selectedType}
             onChange={(e) => {
               setSelectedType(e.target.value);
-              setSelectedVehicle("");
+              setSelectedVehicle(null);
             }}
             options={vehicleTypes}
             placeholder="Select a type"
@@ -47,9 +49,18 @@ const VehicleInfo = () => {
             Vehicle Type<span className="text-red-500">*</span>
           </label>
           <CustomSelect
-            value={selectedVehicle}
+            value={
+              selectedVehicle
+                ? `${selectedVehicle.year} ${selectedVehicle.make} ${selectedVehicle.model}`
+                : ""
+            }
             onChange={(e) => {
-              setSelectedVehicle(e.target.value);
+              const selected = filteredVehicles.find(
+                (vehicle) =>
+                  `${vehicle.year} ${vehicle.make} ${vehicle.model}` ===
+                  e.target.value
+              );
+              setSelectedVehicle(selected);
             }}
             options={filteredVehicles?.map(
               (vehicle) => `${vehicle.year} ${vehicle.make} ${vehicle.model}`

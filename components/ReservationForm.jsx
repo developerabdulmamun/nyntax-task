@@ -12,6 +12,9 @@ const ReservationForm = () => {
   const [returnDate, setReturnDate] = useState(null);
   const [duration, setDuration] = useState("");
 
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState("");
+
   return (
     <div>
       <div className="container mt-3 md:mt-6 lg:mt-12 mb-3 md:mb-6 lg:mb-12">
@@ -32,7 +35,12 @@ const ReservationForm = () => {
               duration={duration}
               setDuration={setDuration}
             />
-            <VehicleInfo />
+            <VehicleInfo
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+              selectedVehicle={selectedVehicle}
+              setSelectedVehicle={setSelectedVehicle}
+            />
           </div>
 
           <div className="col-span-4 lg:col-span-3 space-y-6">
@@ -41,7 +49,10 @@ const ReservationForm = () => {
           </div>
 
           <div className="col-span-4 lg:col-span-4">
-            <ChargesSummary setDuration={setDuration} />
+            <ChargesSummary
+              duration={duration}
+              selectedVehicle={selectedVehicle}
+            />
           </div>
         </div>
       </div>
