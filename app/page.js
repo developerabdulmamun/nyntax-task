@@ -1,3 +1,4 @@
+import AdditionalCharges from "@/components/AdditionalCharges";
 import CustomerInfo from "@/components/CustomerInfo";
 import ReservationDetails from "@/components/ReservationDetails";
 import VehicleInfo from "@/components/VehicleInfo";
@@ -21,6 +22,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-6">
             <CustomerInfo />
+            <AdditionalCharges />
           </div>
         </div>
       </div>
