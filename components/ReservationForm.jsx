@@ -1,25 +1,22 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import AdditionalCharges from "@/components/AdditionalCharges";
 import ChargesSummary from "@/components/ChargesSummary";
 import CustomerInfo from "@/components/CustomerInfo";
 import ReservationDetails from "@/components/ReservationDetails";
 import VehicleInfo from "@/components/VehicleInfo";
-import { useEffect, useRef, useState } from "react";
 import Invoice from "./Invoice";
-import { useReactToPrint } from "react-to-print";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const ReservationForm = () => {
   const [pickupDate, setPickupDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
   const [duration, setDuration] = useState("");
   const [reservationId, setReservationId] = useState("");
-
   const [selectedType, setSelectedType] = useState("");
   const [selectedVehicle, setSelectedVehicle] = useState("");
-
   const [additionalCharges, setAdditionalCharges] = useState(null);
   const [discount, setDiscount] = useState(0);
   const [customerInfo, setCustomerInfo] = useState({
@@ -29,7 +26,6 @@ const ReservationForm = () => {
     phone: "",
   });
   const [showInvoice, setShowInvoice] = useState(false);
-  const invoiceRef = useRef();
 
   useEffect(() => {
     generateReservationId();
@@ -56,17 +52,9 @@ const ReservationForm = () => {
     return `${customerInfo.firstName} ${customerInfo.lastName}`;
   };
 
-  const handlePrintOrDownload = () => {
-    const input = invoiceRef.current;
-
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      const imgWidth = 208;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("invoice.pdf");
-    });
+  const handlePrint = () => {
+    setShowInvoice(true);
+    window.print();
   };
 
   return (
@@ -75,7 +63,7 @@ const ReservationForm = () => {
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-bold text-2xl">Reservation</h1>
           <button
-            onClick={handlePrintOrDownload}
+            onClick={handlePrint}
             className="bg-blue-600 px-6 py-3 rounded text-white font-semibold text-sm hover:bg-blue-800"
           >
             Print / Download
@@ -121,16 +109,16 @@ const ReservationForm = () => {
               discount={discount}
             />
 
-            <Invoice
-              ref={invoiceRef}
-              fullName={getFullName()}
-              customerInfo={customerInfo}
-              duration={duration}
-              selectedVehicle={selectedVehicle}
-              additionalCharges={additionalCharges}
-              discount={discount}
-              reservationId={reservationId}
-            />
+            {showInvoice && (
+              <Invoice
+                customerInfo={customerInfo}
+                duration={duration}
+                selectedVehicle={selectedVehicle}
+                additionalCharges={additionalCharges}
+                discount={discount}
+                reservationId={reservationId}
+              />
+            )}
           </div>
         </div>
       </div>

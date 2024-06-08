@@ -75,6 +75,7 @@ const ReservationDetails = ({
         <input
           type="text"
           value={reservationId}
+          readOnly
           className="border rounded w-full mt-2 mb-5 p-2 text-sm text-[#828290]"
         />
 
