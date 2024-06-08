@@ -1,7 +1,7 @@
 import React from "react";
 import SectionHeader from "./shared/SectionHeader";
 
-const ChargesSummary = ({ duration, selectedVehicle }) => {
+const ChargesSummary = ({ duration, selectedVehicle, additionalCharges }) => {
   if (!selectedVehicle) {
     return <div>Please select a vehicle.</div>;
   }
@@ -19,7 +19,36 @@ const ChargesSummary = ({ duration, selectedVehicle }) => {
   const dailyCharge = daily * days;
   const hourlyCharge = hourly * hours;
 
-  const totalCharge = weeklyCharge + dailyCharge + hourlyCharge;
+  let additionalChargesTotal = 0;
+  if (additionalCharges) {
+    Object.values(additionalCharges).forEach((charge) => {
+      if (charge.checked && charge !== additionalCharges.rentalTax) {
+        additionalChargesTotal += charge.value;
+      }
+    });
+  }
+
+  let rentalTaxAmount = 0;
+  if (
+    additionalCharges &&
+    additionalCharges.rentalTax &&
+    additionalCharges.rentalTax.checked
+  ) {
+    const rentalTaxPercentage = additionalCharges.rentalTax.value || 0;
+
+    const totalChargeExcludingRentalTax =
+      weeklyCharge + dailyCharge + hourlyCharge + additionalChargesTotal;
+
+    rentalTaxAmount =
+      (totalChargeExcludingRentalTax * rentalTaxPercentage) / 100;
+  }
+
+  const totalCharge =
+    weeklyCharge +
+    dailyCharge +
+    hourlyCharge +
+    additionalChargesTotal +
+    rentalTaxAmount;
 
   return (
     <div>
@@ -54,6 +83,25 @@ const ChargesSummary = ({ duration, selectedVehicle }) => {
               <td className="py-2 px-4">${hourly}</td>
               <td className="py-2 px-4">${hourlyCharge}</td>
             </tr>
+
+            {additionalCharges && (
+              <tr>
+                <td className="py-2 px-4">Additional Charges</td>
+                <td></td>
+                <td></td>
+                <td className="py-2 px-4">${additionalChargesTotal}</td>
+              </tr>
+            )}
+
+            {rentalTaxAmount > 0 && (
+              <tr>
+                <td className="py-2 px-4">Rental Tax</td>
+                <td></td>
+                <td></td>
+                <td className="py-2 px-4">${rentalTaxAmount.toFixed(2)}</td>
+              </tr>
+            )}
+
             <tr className="font-semibold">
               <td className="pt-4 px-4 text-start">Total</td>
               <td className="pt-4 px-4 text-start"></td>

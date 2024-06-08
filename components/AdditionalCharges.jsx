@@ -11,15 +11,19 @@ const AdditionalCharges = ({ handleAdditionalChargesChange }) => {
   });
 
   const handleCheckboxChange = (chargeName) => {
-    setAdditionalCharges((prevCharges) => ({
-      ...prevCharges,
-      [chargeName]: {
-        ...prevCharges[chargeName],
-        checked: !prevCharges[chargeName].checked,
-      },
-    }));
+    setAdditionalCharges((prevCharges) => {
+      const updatedCharges = {
+        ...prevCharges,
+        [chargeName]: {
+          ...prevCharges[chargeName],
+          checked: !prevCharges[chargeName].checked,
+        },
+      };
 
-    handleAdditionalChargesChange(additionalCharges);
+      handleAdditionalChargesChange(updatedCharges);
+
+      return updatedCharges;
+    });
   };
 
   return (
