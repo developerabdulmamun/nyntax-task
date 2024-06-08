@@ -6,6 +6,7 @@ import CustomerInfo from "@/components/CustomerInfo";
 import ReservationDetails from "@/components/ReservationDetails";
 import VehicleInfo from "@/components/VehicleInfo";
 import { useState } from "react";
+import Invoice from "./Invoice";
 
 const ReservationForm = () => {
   const [pickupDate, setPickupDate] = useState(null);
@@ -19,8 +20,27 @@ const ReservationForm = () => {
 
   const [discount, setDiscount] = useState(0);
 
+  const [customerInfo, setCustomerInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+
   const handleAdditionalChargesChange = (charges) => {
     setAdditionalCharges(charges);
+  };
+
+  const handleCustomerInfoChange = (e) => {
+    const { name, value } = e.target;
+    setCustomerInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+  };
+
+  const getFullName = () => {
+    return `${customerInfo.firstName} ${customerInfo.lastName}`;
   };
 
   return (
@@ -53,18 +73,32 @@ const ReservationForm = () => {
           </div>
 
           <div className="col-span-4 lg:col-span-3 space-y-6">
-            <CustomerInfo />
+            <CustomerInfo
+              fullName={getFullName()}
+              customerInfo={customerInfo}
+              handleCustomerInfoChange={handleCustomerInfoChange}
+            />
             <AdditionalCharges
               handleAdditionalChargesChange={handleAdditionalChargesChange}
             />
           </div>
 
-          <div className="col-span-4 lg:col-span-4">
+          <div className="col-span-4 space-y-6">
             <ChargesSummary
               duration={duration}
               selectedVehicle={selectedVehicle}
               additionalCharges={additionalCharges}
               discount={discount}
+            />
+
+            <Invoice
+              fullName={getFullName()}
+              customerInfo={customerInfo}
+              vehicleInfo={selectedVehicle}
+              chargesSummary={additionalCharges}
+              additionalDrivers={["Additional Driver 1"]}
+              duration={duration}
+              selectedVehicle={selectedVehicle}
             />
           </div>
         </div>

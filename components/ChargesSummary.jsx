@@ -8,7 +8,12 @@ const ChargesSummary = ({
   discount,
 }) => {
   if (!selectedVehicle) {
-    return <div>Please select a vehicle.</div>;
+    return (
+      <div>
+        <SectionHeader title={"Charges Summary"} />
+        <div>No vehicle selected.</div>
+      </div>
+    );
   }
 
   const { hourly, daily, weekly } = selectedVehicle?.rates;

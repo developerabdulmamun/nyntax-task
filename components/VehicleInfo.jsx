@@ -1,7 +1,7 @@
 "use client";
 
 import useFetchVehicleData from "@/hooks/useFetchVehicleData";
-import React from "react";
+import React, { useState } from "react";
 import CustomSelect from "./shared/CustomSelect";
 import SectionHeader from "./shared/SectionHeader";
 
@@ -13,6 +13,8 @@ const VehicleInfo = ({
 }) => {
   const vehicleData = useFetchVehicleData();
 
+  const [selectedMakeModel, setSelectedMakeModel] = useState("");
+
   const vehicleTypes = [
     ...new Set(vehicleData?.map((vehicle) => vehicle.type)),
   ];
@@ -20,6 +22,16 @@ const VehicleInfo = ({
   const filteredVehicles = vehicleData?.filter(
     (vehicle) => vehicle.type === selectedType
   );
+
+  const handleVehicleSelect = (e) => {
+    const selectedValue = e.target.value;
+    const selected = filteredVehicles.find(
+      (vehicle) =>
+        `${vehicle.year} ${vehicle.make} ${vehicle.model}` === selectedValue
+    );
+    setSelectedVehicle(selected);
+    setSelectedMakeModel(selectedValue);
+  };
 
   return (
     <div>
@@ -38,6 +50,7 @@ const VehicleInfo = ({
             onChange={(e) => {
               setSelectedType(e.target.value);
               setSelectedVehicle(null);
+              setSelectedMakeModel("");
             }}
             options={vehicleTypes}
             placeholder="Select a type"
@@ -49,19 +62,8 @@ const VehicleInfo = ({
             Vehicle Type<span className="text-red-500">*</span>
           </label>
           <CustomSelect
-            value={
-              selectedVehicle
-                ? `${selectedVehicle.year} ${selectedVehicle.make} ${selectedVehicle.model}`
-                : ""
-            }
-            onChange={(e) => {
-              const selected = filteredVehicles.find(
-                (vehicle) =>
-                  `${vehicle.year} ${vehicle.make} ${vehicle.model}` ===
-                  e.target.value
-              );
-              setSelectedVehicle(selected);
-            }}
+            value={selectedMakeModel}
+            onChange={handleVehicleSelect}
             options={filteredVehicles?.map(
               (vehicle) => `${vehicle.year} ${vehicle.make} ${vehicle.model}`
             )}
