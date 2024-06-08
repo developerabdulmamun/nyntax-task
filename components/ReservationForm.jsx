@@ -5,13 +5,14 @@ import ChargesSummary from "@/components/ChargesSummary";
 import CustomerInfo from "@/components/CustomerInfo";
 import ReservationDetails from "@/components/ReservationDetails";
 import VehicleInfo from "@/components/VehicleInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Invoice from "./Invoice";
 
 const ReservationForm = () => {
   const [pickupDate, setPickupDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
   const [duration, setDuration] = useState("");
+  const [reservationId, setReservationId] = useState("");
 
   const [selectedType, setSelectedType] = useState("");
   const [selectedVehicle, setSelectedVehicle] = useState("");
@@ -24,6 +25,15 @@ const ReservationForm = () => {
     email: "",
     phone: "",
   });
+
+  useEffect(() => {
+    generateReservationId();
+  }, []);
+
+  const generateReservationId = () => {
+    const id = "#RES-" + Math.floor(Math.random() * 1000000);
+    setReservationId(id);
+  };
 
   const handleAdditionalChargesChange = (charges) => {
     setAdditionalCharges(charges);
@@ -61,6 +71,7 @@ const ReservationForm = () => {
               duration={duration}
               setDuration={setDuration}
               setDiscount={setDiscount}
+              reservationId={reservationId}
             />
             <VehicleInfo
               selectedType={selectedType}
@@ -98,6 +109,7 @@ const ReservationForm = () => {
               discount={discount}
               pickupDate={pickupDate}
               returnDate={returnDate}
+              reservationId={reservationId}
             />
           </div>
         </div>

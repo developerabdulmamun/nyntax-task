@@ -15,6 +15,7 @@ const ReservationDetails = ({
   duration,
   setDuration,
   setDiscount,
+  reservationId,
 }) => {
   const [discountValue, setDiscountValue] = useState("");
 
@@ -73,6 +74,7 @@ const ReservationDetails = ({
         <label className="font-light text-sm">Reservation ID</label>
         <input
           type="text"
+          value={reservationId}
           className="border rounded w-full mt-2 mb-5 p-2 text-sm text-[#828290]"
         />
 
