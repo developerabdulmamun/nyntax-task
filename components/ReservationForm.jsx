@@ -58,8 +58,8 @@ const ReservationForm = () => {
   };
 
   return (
-    <div>
-      <div className="container mt-3 md:mt-6 lg:mt-12 mb-3 md:mb-6 lg:mb-12">
+    <div className="container">
+      <div className="sticky top-0 bg-white z-10 py-3 md:py-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-bold text-2xl">Reservation</h1>
           <button
@@ -69,57 +69,57 @@ const ReservationForm = () => {
             Print / Download
           </button>
         </div>
+      </div>
 
-        <div className="grid grid-cols-3 lg:grid-cols-10 gap-6">
-          <div className="col-span-4 lg:col-span-3 space-y-6">
-            <ReservationDetails
-              pickupDate={pickupDate}
-              setPickupDate={setPickupDate}
-              returnDate={returnDate}
-              setReturnDate={setReturnDate}
-              duration={duration}
-              setDuration={setDuration}
-              setDiscount={setDiscount}
-              reservationId={reservationId}
-            />
-            <VehicleInfo
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-              selectedVehicle={selectedVehicle}
-              setSelectedVehicle={setSelectedVehicle}
-            />
-          </div>
+      <div className="grid grid-cols-3 lg:grid-cols-10 gap-6">
+        <div className="col-span-4 lg:col-span-3 space-y-6">
+          <ReservationDetails
+            pickupDate={pickupDate}
+            setPickupDate={setPickupDate}
+            returnDate={returnDate}
+            setReturnDate={setReturnDate}
+            duration={duration}
+            setDuration={setDuration}
+            setDiscount={setDiscount}
+            reservationId={reservationId}
+          />
+          <VehicleInfo
+            selectedType={selectedType}
+            setSelectedType={setSelectedType}
+            selectedVehicle={selectedVehicle}
+            setSelectedVehicle={setSelectedVehicle}
+          />
+        </div>
 
-          <div className="col-span-4 lg:col-span-3 space-y-6">
-            <CustomerInfo
-              fullName={getFullName()}
+        <div className="col-span-4 lg:col-span-3 space-y-6">
+          <CustomerInfo
+            fullName={getFullName()}
+            customerInfo={customerInfo}
+            handleCustomerInfoChange={handleCustomerInfoChange}
+          />
+          <AdditionalCharges
+            handleAdditionalChargesChange={handleAdditionalChargesChange}
+          />
+        </div>
+
+        <div className="col-span-4 space-y-6">
+          <ChargesSummary
+            duration={duration}
+            selectedVehicle={selectedVehicle}
+            additionalCharges={additionalCharges}
+            discount={discount}
+          />
+
+          {showInvoice && (
+            <Invoice
               customerInfo={customerInfo}
-              handleCustomerInfoChange={handleCustomerInfoChange}
-            />
-            <AdditionalCharges
-              handleAdditionalChargesChange={handleAdditionalChargesChange}
-            />
-          </div>
-
-          <div className="col-span-4 space-y-6">
-            <ChargesSummary
               duration={duration}
               selectedVehicle={selectedVehicle}
               additionalCharges={additionalCharges}
               discount={discount}
+              reservationId={reservationId}
             />
-
-            {showInvoice && (
-              <Invoice
-                customerInfo={customerInfo}
-                duration={duration}
-                selectedVehicle={selectedVehicle}
-                additionalCharges={additionalCharges}
-                discount={discount}
-                reservationId={reservationId}
-              />
-            )}
-          </div>
+          )}
         </div>
       </div>
     </div>
