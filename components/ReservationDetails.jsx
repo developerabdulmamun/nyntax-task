@@ -1,6 +1,10 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const ReservationDetails = () => {
   const [pickupDate, setPickupDate] = useState(null);
