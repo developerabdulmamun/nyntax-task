@@ -1,4 +1,5 @@
 import ReservationDetails from "@/components/ReservationDetails";
+import VehicleInfo from "@/components/VehicleInfo";
 
 export default function Home() {
   return (
@@ -11,7 +12,12 @@ export default function Home() {
           </button>
         </div>
 
-        <ReservationDetails />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-6">
+            <ReservationDetails />
+            <VehicleInfo />
+          </div>
+        </div>
       </div>
     </main>
   );
