@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
 
 import "react-datepicker/dist/react-datepicker.css";
+import SectionHeader from "./shared/SectionHeader";
 
 const ReservationDetails = () => {
   const [pickupDate, setPickupDate] = useState(null);
@@ -54,9 +55,7 @@ const ReservationDetails = () => {
 
   return (
     <div>
-      <h1 className="font-semibold text-lg mb-6 w-full border-b-2 border-blue-500">
-        Reservation Details
-      </h1>
+      <SectionHeader title={"Reservation Details"} />
 
       <form className="p-5 rounded border">
         <label className="font-light text-sm">Reservation ID</label>

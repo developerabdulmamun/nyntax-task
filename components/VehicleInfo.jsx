@@ -3,6 +3,7 @@
 import useFetchVehicleData from "@/hooks/useFetchVehicleData";
 import React, { useState } from "react";
 import CustomSelect from "./shared/CustomSelect";
+import SectionHeader from "./shared/SectionHeader";
 
 const VehicleInfo = () => {
   const vehicleData = useFetchVehicleData();
@@ -20,9 +21,7 @@ const VehicleInfo = () => {
 
   return (
     <div>
-      <h1 className="font-semibold text-lg mb-6 w-full border-b-2 border-blue-500">
-        Vehicle Information
-      </h1>
+      <SectionHeader title={"Vehicle Information"} />
 
       <form className="p-5 rounded border">
         <div className="mb-5 relative">

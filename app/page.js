@@ -17,6 +17,10 @@ export default function Home() {
             <ReservationDetails />
             <VehicleInfo />
           </div>
+
+          <div className="flex flex-col gap-6">
+            
+          </div>
         </div>
       </div>
     </main>
