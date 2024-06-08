@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
 
 import "react-datepicker/dist/react-datepicker.css";
 import SectionHeader from "./shared/SectionHeader";
 
-const ReservationDetails = () => {
-  const [pickupDate, setPickupDate] = useState(null);
-  const [returnDate, setReturnDate] = useState(null);
-  const [duration, setDuration] = useState("");
-
+const ReservationDetails = ({
+  pickupDate,
+  setPickupDate,
+  returnDate,
+  setReturnDate,
+  duration,
+  setDuration,
+}) => {
   // Calculate Duration
   const calculateDuration = (startDate, endDate) => {
     if (!startDate || !endDate) {
@@ -24,34 +27,36 @@ const ReservationDetails = () => {
     diffInMs -= diffInWeeks * (1000 * 60 * 60 * 24 * 7);
 
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    diffInMs -= diffInDays * (1000 * 60 * 60 * 24);
+
+    const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
 
     const formatUnit = (value, unit) => {
       return `${value} ${unit}${value !== 1 ? "s" : ""}`;
     };
 
-    if (diffInWeeks === 0 && diffInDays === 1) {
-      return formatUnit(diffInDays, "Day");
-    } else if (diffInWeeks === 0) {
-      return formatUnit(diffInDays, "Days");
-    } else if (diffInWeeks === 1 && diffInDays === 0) {
-      return formatUnit(diffInWeeks, "Week");
-    } else if (diffInWeeks === 1 && diffInDays === 1) {
-      return `${diffInWeeks} Week ${diffInDays} Day`;
-    } else if (diffInWeeks === 1) {
-      return `${diffInWeeks} Week ${formatUnit(diffInDays, "Day")}`;
-    } else if (diffInDays === 0) {
-      return formatUnit(diffInWeeks, "Week");
-    } else {
-      return `${formatUnit(diffInWeeks, "Week")} ${formatUnit(
-        diffInDays,
-        "Day"
-      )}`;
+    let durationStr = "";
+
+    if (diffInWeeks > 0) {
+      durationStr += formatUnit(diffInWeeks, "Week");
     }
+
+    if (diffInDays > 0) {
+      if (durationStr) durationStr += " ";
+      durationStr += formatUnit(diffInDays, "Day");
+    }
+
+    if (diffInHours > 0) {
+      if (durationStr) durationStr += " ";
+      durationStr += formatUnit(diffInHours, "Hour");
+    }
+
+    return durationStr;
   };
 
   useEffect(() => {
     setDuration(calculateDuration(pickupDate, returnDate));
-  }, [pickupDate, returnDate]);
+  }, [setDuration, pickupDate, returnDate]);
 
   return (
     <div>
