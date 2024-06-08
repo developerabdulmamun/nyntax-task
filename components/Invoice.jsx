@@ -38,7 +38,7 @@ const Invoice = ({
         </div>
 
         <div className="mb-6">
-          <h3 className="font-semibold border-b pb-2">UNIT DETAILS</h3>
+          <h3 className="font-semibold border-b pb-2">CAR DETAILS</h3>
           <p className="mt-1">Company: {selectedVehicle?.make}</p>
           <p className="mt-1">Model: {selectedVehicle?.model}</p>
           <p className="mt-1">Year: {selectedVehicle?.year}</p>
