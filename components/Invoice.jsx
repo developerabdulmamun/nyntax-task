@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
 import ChargesSummary from "./ChargesSummary";
 
 const Invoice = ({
@@ -8,15 +7,9 @@ const Invoice = ({
   duration,
   additionalCharges,
   discount,
-  pickupDate,
-  returnDate,
   reservationId,
 }) => {
   const invoiceRef = useRef();
-
-  const handlePrint = useReactToPrint({
-    content: () => invoiceRef.current,
-  });
 
   return (
     <div>
@@ -58,16 +51,7 @@ const Invoice = ({
           discount={discount}
         />
         <p className="mt-4">Duration: {duration}</p>
-        <p className="mt-2">Pick-up Date: {pickupDate}</p>
-        <p className="mt-2">Return Date: {returnDate}</p>
       </div>
-
-      <button
-        onClick={handlePrint}
-        className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800"
-      >
-        Print / Download
-      </button>
     </div>
   );
 };

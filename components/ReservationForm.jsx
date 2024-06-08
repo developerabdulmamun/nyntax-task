@@ -5,8 +5,11 @@ import ChargesSummary from "@/components/ChargesSummary";
 import CustomerInfo from "@/components/CustomerInfo";
 import ReservationDetails from "@/components/ReservationDetails";
 import VehicleInfo from "@/components/VehicleInfo";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Invoice from "./Invoice";
+import { useReactToPrint } from "react-to-print";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const ReservationForm = () => {
   const [pickupDate, setPickupDate] = useState(null);
@@ -25,6 +28,8 @@ const ReservationForm = () => {
     email: "",
     phone: "",
   });
+  const [showInvoice, setShowInvoice] = useState(false);
+  const invoiceRef = useRef();
 
   useEffect(() => {
     generateReservationId();
@@ -51,12 +56,28 @@ const ReservationForm = () => {
     return `${customerInfo.firstName} ${customerInfo.lastName}`;
   };
 
+  const handlePrintOrDownload = () => {
+    const input = invoiceRef.current;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgWidth = 208;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("invoice.pdf");
+    });
+  };
+
   return (
     <div>
       <div className="container mt-3 md:mt-6 lg:mt-12 mb-3 md:mb-6 lg:mb-12">
         <div className="flex justify-between items-center mb-6">
           <h1 className="font-bold text-2xl">Reservation</h1>
-          <button className="bg-blue-600 px-6 py-3 rounded text-white font-semibold text-sm hover:bg-blue-800">
+          <button
+            onClick={handlePrintOrDownload}
+            className="bg-blue-600 px-6 py-3 rounded text-white font-semibold text-sm hover:bg-blue-800"
+          >
             Print / Download
           </button>
         </div>
@@ -101,14 +122,13 @@ const ReservationForm = () => {
             />
 
             <Invoice
+              ref={invoiceRef}
               fullName={getFullName()}
               customerInfo={customerInfo}
               duration={duration}
               selectedVehicle={selectedVehicle}
               additionalCharges={additionalCharges}
               discount={discount}
-              pickupDate={pickupDate}
-              returnDate={returnDate}
               reservationId={reservationId}
             />
           </div>
