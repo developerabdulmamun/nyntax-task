@@ -17,9 +17,7 @@ const ReservationForm = () => {
   const [selectedVehicle, setSelectedVehicle] = useState("");
 
   const [additionalCharges, setAdditionalCharges] = useState(null);
-
   const [discount, setDiscount] = useState(0);
-
   const [customerInfo, setCustomerInfo] = useState({
     firstName: "",
     lastName: "",
@@ -94,11 +92,10 @@ const ReservationForm = () => {
             <Invoice
               fullName={getFullName()}
               customerInfo={customerInfo}
-              vehicleInfo={selectedVehicle}
-              chargesSummary={additionalCharges}
-              additionalDrivers={["Additional Driver 1"]}
               duration={duration}
               selectedVehicle={selectedVehicle}
+              additionalCharges={additionalCharges}
+              discount={discount}
             />
           </div>
         </div>
