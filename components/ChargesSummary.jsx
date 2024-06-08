@@ -1,12 +1,15 @@
 import React from "react";
 import SectionHeader from "./shared/SectionHeader";
 
-const ChargesSummary = ({ duration, selectedVehicle, additionalCharges }) => {
+const ChargesSummary = ({
+  duration,
+  selectedVehicle,
+  additionalCharges,
+  discount,
+}) => {
   if (!selectedVehicle) {
     return <div>Please select a vehicle.</div>;
   }
-
-  console.log(duration);
 
   const { hourly, daily, weekly } = selectedVehicle?.rates;
 
@@ -43,12 +46,19 @@ const ChargesSummary = ({ duration, selectedVehicle, additionalCharges }) => {
       (totalChargeExcludingRentalTax * rentalTaxPercentage) / 100;
   }
 
-  const totalCharge =
+  let totalChargeBeforeDiscount =
     weeklyCharge +
     dailyCharge +
     hourlyCharge +
     additionalChargesTotal +
     rentalTaxAmount;
+
+  let discountAmount = 0;
+  if (discount) {
+    discountAmount = (totalChargeBeforeDiscount * discount) / 100;
+  }
+
+  const totalCharge = totalChargeBeforeDiscount - discountAmount;
 
   return (
     <div>
@@ -99,6 +109,15 @@ const ChargesSummary = ({ duration, selectedVehicle, additionalCharges }) => {
                 <td></td>
                 <td></td>
                 <td className="py-2 px-4">${rentalTaxAmount.toFixed(2)}</td>
+              </tr>
+            )}
+
+            {discountAmount > 0 && (
+              <tr>
+                <td className="py-2 px-4">Discount</td>
+                <td></td>
+                <td></td>
+                <td className="py-2 px-4">-${discountAmount.toFixed(2)}</td>
               </tr>
             )}
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
 
@@ -14,7 +14,10 @@ const ReservationDetails = ({
   setReturnDate,
   duration,
   setDuration,
+  setDiscount,
 }) => {
+  const [discountValue, setDiscountValue] = useState("");
+
   // Calculate Duration
   const calculateDuration = (startDate, endDate) => {
     if (!startDate || !endDate) {
@@ -57,6 +60,10 @@ const ReservationDetails = ({
   useEffect(() => {
     setDuration(calculateDuration(pickupDate, returnDate));
   }, [setDuration, pickupDate, returnDate]);
+
+  useEffect(() => {
+    setDiscount(discountValue);
+  }, [setDiscount, discountValue]);
 
   return (
     <div>
@@ -115,10 +122,12 @@ const ReservationDetails = ({
           />
         </div>
 
-        <label className="font-light text-sm">Discount</label>
+        <label className="font-light text-sm">Discount (%)</label>
         <input
-          type="text"
+          type="number"
           className="border rounded w-full mt-2 p-2 text-sm text-[#828290]"
+          value={discountValue}
+          onChange={(e) => setDiscountValue(e.target.value)}
         />
       </form>
     </div>

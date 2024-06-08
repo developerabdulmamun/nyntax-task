@@ -17,6 +17,8 @@ const ReservationForm = () => {
 
   const [additionalCharges, setAdditionalCharges] = useState(null);
 
+  const [discount, setDiscount] = useState(0);
+
   const handleAdditionalChargesChange = (charges) => {
     setAdditionalCharges(charges);
   };
@@ -40,6 +42,7 @@ const ReservationForm = () => {
               setReturnDate={setReturnDate}
               duration={duration}
               setDuration={setDuration}
+              setDiscount={setDiscount}
             />
             <VehicleInfo
               selectedType={selectedType}
@@ -61,6 +64,7 @@ const ReservationForm = () => {
               duration={duration}
               selectedVehicle={selectedVehicle}
               additionalCharges={additionalCharges}
+              discount={discount}
             />
           </div>
         </div>
