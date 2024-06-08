@@ -100,13 +100,13 @@ const ReservationDetails = () => {
           <FaCalendarAlt className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-sm text-[#828290]" />
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center my-5 ">
           <label className="font-light text-sm">Duration</label>
           <input
             type="text"
             value={duration}
             readOnly
-            className="border rounded w-3/4 mt-2 mb-5 p-2 text-sm text-[#828290]"
+            className="border rounded w-3/4 p-2 text-sm text-[#828290]"
           />
         </div>
 
