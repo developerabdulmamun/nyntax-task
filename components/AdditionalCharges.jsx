@@ -3,23 +3,23 @@
 import React, { useState } from "react";
 import SectionHeader from "./shared/SectionHeader";
 
-const AdditionalCharges = () => {
-  const [collisionDamageWaiverChecked, setCollisionDamageWaiverChecked] =
-    useState(false);
-  const [liabilityInsuranceChecked, setLiabilityInsuranceChecked] =
-    useState(false);
-  const [rentalTaxChecked, setRentalTaxChecked] = useState(false);
+const AdditionalCharges = ({ handleAdditionalChargesChange }) => {
+  const [additionalCharges, setAdditionalCharges] = useState({
+    collisionDamageWaiver: { checked: false, value: 9 },
+    liabilityInsurance: { checked: false, value: 15 },
+    rentalTax: { checked: false, value: 11.5 },
+  });
 
-  const handleCollisionDamageWaiverChange = () => {
-    setCollisionDamageWaiverChecked(!collisionDamageWaiverChecked);
-  };
+  const handleCheckboxChange = (chargeName) => {
+    setAdditionalCharges((prevCharges) => ({
+      ...prevCharges,
+      [chargeName]: {
+        ...prevCharges[chargeName],
+        checked: !prevCharges[chargeName].checked,
+      },
+    }));
 
-  const handleLiabilityInsuranceChange = () => {
-    setLiabilityInsuranceChecked(!liabilityInsuranceChecked);
-  };
-
-  const handleRentalTaxChange = () => {
-    setRentalTaxChecked(!rentalTaxChecked);
+    handleAdditionalChargesChange(additionalCharges);
   };
 
   return (
@@ -30,31 +30,34 @@ const AdditionalCharges = () => {
         <label className="flex w-full text-sm mb-5">
           <input
             type="checkbox"
-            checked={collisionDamageWaiverChecked}
-            onChange={handleCollisionDamageWaiverChange}
+            checked={additionalCharges.collisionDamageWaiver.checked}
+            onChange={() => handleCheckboxChange("collisionDamageWaiver")}
             className="mr-2"
           />
-          <span className="flex-1">Collision Damage Waiver</span> $9.00
+          <span className="flex-1">Collision Damage Waiver</span> $
+          {additionalCharges.collisionDamageWaiver.value.toFixed(2)}
         </label>
 
         <label className="flex w-full text-sm mb-5">
           <input
             type="checkbox"
-            checked={liabilityInsuranceChecked}
-            onChange={handleLiabilityInsuranceChange}
+            checked={additionalCharges.liabilityInsurance.checked}
+            onChange={() => handleCheckboxChange("liabilityInsurance")}
             className="mr-2"
           />
-          <span className="flex-1">Liability Insurance</span> $15.00
+          <span className="flex-1">Liability Insurance</span> $
+          {additionalCharges.liabilityInsurance.value.toFixed(2)}
         </label>
 
-        <label className="flex w-full text-sm">
+        <label className="flex w-full text-sm mb-5">
           <input
             type="checkbox"
-            checked={rentalTaxChecked}
-            onChange={handleRentalTaxChange}
+            checked={additionalCharges.rentalTax.checked}
+            onChange={() => handleCheckboxChange("rentalTax")}
             className="mr-2"
           />
-          <span className="flex-1">Rental Tax</span> 11.5%
+          <span className="flex-1">Rental Tax</span>{" "}
+          {additionalCharges.rentalTax.value}%
         </label>
       </div>
     </div>
